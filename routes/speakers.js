@@ -1,0 +1,21 @@
+const express = require('express');
+
+const router = express.Router();
+
+//export router to use in server.js .... also return router
+module.exports = (params) => {
+  const { speakersService } = params;
+
+  router.get('/', async (request, response) => {
+    console.log('in router.get');
+    const speakers = await speakersService.getList();
+    return response.json(speakers);
+  });
+
+  //route for detail of speaker
+  router.get('/:shortname', (request, response) => {
+    return response.send(`Detail page of ${request.params.shortname}`);
+  });
+
+  return router;
+};
