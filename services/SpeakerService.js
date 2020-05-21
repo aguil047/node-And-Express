@@ -15,7 +15,6 @@ class SpeakerService {
    * @param {*} datafile Path to a JSOn file that contains the speakers data
    */
   constructor(datafile) {
-    console.log('in construc');
     this.datafile = datafile;
   }
 
