@@ -97,7 +97,6 @@ class SpeakerService {
    * Get a list of speakers
    */
   async getList() {
-    console.log('in get');
     const data = await this.getData();
     return data.map((speaker) => {
       return {
@@ -113,7 +112,7 @@ class SpeakerService {
    * Fetches speakers data from the JSON file provided to the constructor
    */
   async getData() {
-    console.log('in getdata');
+    //console.log('in getdata');
     const data = await readFile(this.datafile, 'utf8');
     if (!data) return [];
     return JSON.parse(data).speakers;
