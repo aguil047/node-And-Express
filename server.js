@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const cookieSession = require('cookie-session');
+const createError = require('http-errors');
+const bodyParser = require('body-parser');
 //bring in routes
 const routes = require('./routes');
 
@@ -26,6 +28,7 @@ app.use(
   })
 );
 
+app.use(bodyParser.urlencoded({ extended: true }));
 //tell express to use ejs
 app.set('view engine', 'ejs');
 //tell express where to find the views
@@ -62,6 +65,20 @@ app.use(
     feedbackService,
   })
 );
+
+//routes are handled in order if no route match we send a error
+app.use((request, response, next) => {
+  return next(createError(404, 'File not found'));
+});
+
+app.use((err, request, response, next) => {
+  response.locals.message = err.message;
+  console.error(err);
+  const status = err.status || 500;
+  response.locals.status = status;
+  response.status(status);
+  response.render('error');
+});
 
 // start the server and tell it where to listen
 app.listen(port, () => {
