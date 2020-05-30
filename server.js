@@ -29,6 +29,8 @@ app.use(
 );
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 //tell express to use ejs
 app.set('view engine', 'ejs');
 //tell express where to find the views
